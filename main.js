@@ -1,18 +1,20 @@
+// Set up scene, camera, and renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('loadingScreen').appendChild(renderer.domElement);
 
+// Particle system setup
 const particlesGeometry = new THREE.BufferGeometry();
 const particlesCount = 5000;
-const posArray = new Float32Array(particlesCount * 3); 
+const posArray = new Float32Array(particlesCount * 3); // x, y, z for each particle
 const colors = [];
 const color1 = new THREE.Color('purple');
 const color2 = new THREE.Color('cyan');
 
 for (let i = 0; i < particlesCount * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 5; 
+    posArray[i] = (Math.random() - 0.5) * 5;
 }
 
 for (let i = 0; i < particlesCount; i++) {
@@ -39,11 +41,11 @@ setTimeout(() => {
     showGlitchEffects = true;
 }, 2000); 
 
-
+// Function to generate binary code
 function generateBinaryCode() {
     if (!showGlitchEffects) return;
 
-    for (let i = 0; i < 5; i++) { 
+    for (let i = 0; i < 10; i++) { 
         const binaryCode = document.createElement('div');
         binaryCode.textContent = Math.random() < 0.5 ? '0' : '1';
         binaryCode.className = 'binaryCode';
@@ -58,14 +60,38 @@ function generateBinaryCode() {
 
         setTimeout(() => {
             document.body.removeChild(binaryCode);
-        }, Math.random() * 1000 + 500); 
+        }, Math.random() * 500 + 250); 
     }
 }
 
+let binaryCodeInterval = setInterval(generateBinaryCode, 30); 
 
-let binaryCodeInterval = setInterval(generateBinaryCode, 50); 
+// Function to generate "Error" text with similar behavior as binary code
+function generateErrorText() {
+    if (!showGlitchEffects) return;
 
+    for (let i = 0; i < 1; i++) { 
+        const errorText = document.createElement('div');
+        errorText.textContent = 'Error';
+        errorText.className = 'errorText';
+        errorText.style.left = `${Math.random() * 100}%`;
+        errorText.style.top = `${Math.random() * 100}%`;
+        errorText.style.color = 'red';
+        errorText.style.fontSize = `${Math.random() * 20 + 20}px`;
+        errorText.style.position = 'fixed';
+        errorText.style.zIndex = '1000'; 
 
+        document.body.appendChild(errorText);
+
+        setTimeout(() => {
+            document.body.removeChild(errorText);
+        }, Math.random() * 500 + 250); 
+    }
+}
+
+let errorTextInterval = setInterval(generateErrorText, 30); 
+
+// Handle window resize
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -74,22 +100,22 @@ function onWindowResize() {
 
 window.addEventListener('resize', onWindowResize, false);
 
-
+// Animation loop with a constant particle rotation speed
 const transitionTime = 20000;
 let timeUntilTransition = transitionTime;
 
 function animate() {
     requestAnimationFrame(animate);
 
-    particlesMesh.rotation.y += 0.004;
+    particlesMesh.rotation.y += 0.004; // Constant, fast rotation speed for the particles
 
     renderer.render(scene, camera);
 
-    timeUntilTransition -= 1000 / 60; 
+    timeUntilTransition -= 1000 / 60;
 }
 
 animate();
 
 setTimeout(() => {
-    window.location.href = 'error.html'; 
+    window.location.href = 'error.html'; // Redirect to the next page
 }, transitionTime);

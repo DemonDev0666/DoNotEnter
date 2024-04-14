@@ -2,10 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERROR</title>
+    <title>Error</title>
+    <style>
+        body, html { margin: 0; overflow: hidden; background: #000; }
+        #errorScene { width: 100vw; height: 100vh; }
+        #errorMessage {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            font-size: 2em;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
+    <div id="errorScene"></div>
+    <div id="errorMessage" style="color: red;">
+        Error: Are you sure you're in the right dimension?
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.125.0/build/three.min.js"></script>
     <script src="error.js"></script>
 </body>
 </html>
