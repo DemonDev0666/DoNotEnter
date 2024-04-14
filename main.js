@@ -1,11 +1,11 @@
-// Set up scene, camera, and renderer
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('loadingScreen').appendChild(renderer.domElement);
 
-// Particle system setup
+
 const particlesGeometry = new THREE.BufferGeometry();
 const particlesCount = 5000;
 const posArray = new Float32Array(particlesCount * 3); // x, y, z for each particle
@@ -41,7 +41,7 @@ setTimeout(() => {
     showGlitchEffects = true;
 }, 2000); 
 
-// Function to generate binary code
+
 function generateBinaryCode() {
     if (!showGlitchEffects) return;
 
@@ -66,7 +66,7 @@ function generateBinaryCode() {
 
 let binaryCodeInterval = setInterval(generateBinaryCode, 30); 
 
-// Function to generate "Error" text with similar behavior as binary code
+
 function generateErrorText() {
     if (!showGlitchEffects) return;
 
@@ -101,13 +101,13 @@ function onWindowResize() {
 window.addEventListener('resize', onWindowResize, false);
 
 // Animation loop with a constant particle rotation speed
-const transitionTime = 20000;
+const transitionTime = 10000;
 let timeUntilTransition = transitionTime;
 
 function animate() {
     requestAnimationFrame(animate);
 
-    particlesMesh.rotation.y += 0.004; // Constant, fast rotation speed for the particles
+    particlesMesh.rotation.y += 0.004; 
 
     renderer.render(scene, camera);
 
@@ -117,5 +117,5 @@ function animate() {
 animate();
 
 setTimeout(() => {
-    window.location.href = 'error.html'; // Redirect to the next page
+    window.location.href = 'error.html'; 
 }, transitionTime);
